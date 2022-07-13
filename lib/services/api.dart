@@ -4,7 +4,7 @@ import 'package:pragma_demos_gitinfouser/utils/constants.dart';
 class Api {
   Future<String> getUsers(http.Client client, String username) async {
     final response =
-        await client.get(Uri.parse('$urlApi{$endPointUsers}?q=$username'));
+        await client.get(Uri.parse('$urlApi$endPointUsers?q=$username'));
 
     if (response.statusCode == 200) {
       return response.body;
@@ -15,7 +15,7 @@ class Api {
 
   Future<String> getUser(http.Client client, String username) async {
     final response =
-        await client.get(Uri.parse('$urlApi{$endPointUser}/$username'));
+        await client.get(Uri.parse('$urlApi$endPointUser/$username'));
 
     if (response.statusCode == 200) {
       return response.body;

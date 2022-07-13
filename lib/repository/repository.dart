@@ -7,10 +7,12 @@ import 'package:http/http.dart' as http;
 
 class Repository {
   final api = Api();
-  final client = http.Client();
+  http.Client? client;
+
+  Repository({this.client});
 
   Future<GitUser> getGitUser(String username) async {
-    final request = await api.getUser(client, username);
+    final request = await api.getUser(client!, username);
 
     Map<String, dynamic> json = jsonDecode(request);
 
@@ -28,13 +30,15 @@ class Repository {
 
   Future<List<GitUsersAdvanced>> getGitUsersAdvanced(String username) async {
     final List<GitUsersAdvanced> users = [];
-    final request = await api.getUsers(client, username);
+    client ??= http.Client();
 
-    List<Map<String, dynamic>> decodeData = jsonDecode(request);
+    final request = await api.getUsers(client!, username);
+
+    Map<String, dynamic> decodeData = jsonDecode(request);
 
     if (decodeData.isEmpty) return users;
 
-    for (var user in decodeData) {
+    for (var user in decodeData['items']) {
       final userTemp = GitUsersAdvanced(
         login: user["login"],
         avatarUrl: user["avatar_url"],

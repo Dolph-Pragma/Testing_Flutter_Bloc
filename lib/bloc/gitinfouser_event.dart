@@ -9,4 +9,6 @@ abstract class GitinfouserEvent {}
 //   GetUsersEvent(this.username);
 // }
 
-class GetUsersEvent extends GitinfouserEvent {}
+class GetUsersEvent extends GitinfouserEvent {
+  GetUsersEvent() : super();
+}
